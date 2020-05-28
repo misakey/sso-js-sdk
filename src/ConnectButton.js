@@ -1,0 +1,130 @@
+import React, { useState, useMemo } from 'react';
+
+import Avatar from '@misakey/ui/Avatar/User';
+
+import Popover from '@material-ui/core/Popover';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+import { useLocalStyles, openCenteredWindow, setLocalStorageItem } from './helpers';
+
+const popoverStyle = {
+  width: '350px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '15px',
+  boxSizing: 'border-box',
+}
+
+const logoutButton = {
+  border: '1px solid black',
+  borderRadius: '5px',
+  minWidth: '200px',
+  cursor: 'pointer',
+  textTransform: 'uppercase',
+  background: 'white',
+  marginTop: '10px',
+  marginBottom: '10px',
+}
+
+
+export default ({ authConfig }) => {
+  const [userProfile, setUserProfile] = useState(localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const isAuthenticated = useMemo(
+    () => userProfile !== null,
+    [userProfile],
+  );
+
+  const [position, commonStyle, buttonStyle, buttonDisabledStyle] = useLocalStyles(authConfig.buttonPlacement);
+
+
+  const onConnect = () => {
+    const authUrl = `https://auth.misakey.com.local/_/oauth2/auth?client_id=${authConfig.clientId}&redirect_uri=${authConfig.redirectUri}&response_type=id_token&scope=openid+user&state=seizeyourday&nonce=${Math.random().toString(36).substr(2)}&prompt=login`
+    console.log(authUrl)
+    const authWindow = openCenteredWindow(authUrl, 'authwindow', 800, 600)
+
+    // redirect to auth flow
+    // window.location = '/callback#accessToken';
+    // Set a loader in connect button ?
+    setIsConnecting(true);
+    const checkInterval = setInterval(
+      () => {
+        if(authWindow.closed) {
+          const newUserProfile = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null;
+
+          setUserProfile(newUserProfile);
+          clearInterval(checkInterval);
+          setIsConnecting(false);
+        }
+      },
+      500,
+    );
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onLogout = () => {
+    setUserProfile(null);
+    setLocalStorageItem('userProfile', null);
+    handleClose();
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'account-popover' : undefined;
+
+  if (isConnecting) {
+    return (
+      <a style={buttonDisabledStyle}>
+        Connexion...
+      </a>
+    )
+  }
+
+  if (isAuthenticated) {
+    return (
+      <>
+        <Avatar aria-describedby={id}  displayName={userProfile.name} style={commonStyle} onClick={handleClick} />
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={position}
+          transformOrigin={position}
+        >
+          <Paper style={popoverStyle}>
+            <Avatar displayName={userProfile.name} />
+            <Typography variant="h4">
+              {userProfile.name.substr(0, 5)}
+            </Typography>
+            <Typography color="textSecondary">
+              {userProfile.name.substr(0, 10)}
+            </Typography>
+            <hr width="100%" />
+            <button onClick={onLogout} style={logoutButton}>Deconnexion</button>
+            <hr width="100%" />
+            <Link href="#" color="textSecondary">Règles de confidentialité</Link>
+            <Link href="#" color="textSecondary">Conditions d'utilisation</Link>
+          </Paper>
+        </Popover>
+      </>
+    )
+  }
+
+  return (
+    <a style={buttonStyle} onClick={onConnect}>
+      Connexion
+    </a>
+  )
+}

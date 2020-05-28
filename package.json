@@ -1,0 +1,42 @@
+{
+  "name": "@misakey/sdk",
+  "version": "0.0.2",
+  "description": "SDK for Misakey's SSO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "build": "./node_modules/.bin/babel src --out-dir build && cp package.json build/ && cp README.md build",
+    "watch": "./node_modules/.bin/babel src -w --out-dir build --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Misakey/js-sdk.git"
+  },
+  "keywords": [
+    "misakey",
+    "sso",
+    "oidc"
+  ],
+  "author": "Misakey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/Misakey/js-sdk/issues"
+  },
+  "homepage": "https://gitlab.com/Misakey/js-sdk#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
+    "@misakey/helpers": "^3.5.1",
+    "@misakey/ui": "^4.2.1"
+  }
+}
