@@ -44,7 +44,7 @@ export default ({ authConfig }) => {
 
 
   const onConnect = () => {
-    const authUrl = `https://auth.misakey.com.local/_/oauth2/auth?client_id=${authConfig.clientId}&redirect_uri=${authConfig.redirectUri}&response_type=id_token&scope=openid+user&state=seizeyourday&nonce=${Math.random().toString(36).substr(2)}&prompt=login`
+    const authUrl = `https://auth.misakey.com.local/_/oauth2/auth?client_id=${authConfig.clientId}&redirect_uri=${authConfig.redirectUri}&response_type=id_token&scope=openid&state=seizeyourday&nonce=${Math.random().toString(36).substr(2)}&prompt=login`
     console.log(authUrl)
     const authWindow = openCenteredWindow(authUrl, 'authwindow', 800, 600)
 

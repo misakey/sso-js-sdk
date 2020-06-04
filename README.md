@@ -2,7 +2,10 @@
 
 Misakey SDK for integrating easy user authentication in your JS application
 
-[![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.npmjs.com/package/@misakey/sdk"><img src="https://badge.fury.io/js/%40misakey%2Fsdk.svg" alt="NPM Version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat" alt="License: MIT"></a>
+</p>
 
 ## Table of Contents
 
