@@ -27,6 +27,7 @@ const logoutButton = {
   background: 'white',
   marginTop: '10px',
   marginBottom: '10px',
+  padding: '2px 0',
 }
 
 
@@ -44,13 +45,9 @@ export default ({ authConfig }) => {
 
 
   const onConnect = () => {
-    const authUrl = `https://auth.misakey.com.local/_/oauth2/auth?client_id=${authConfig.clientId}&redirect_uri=${authConfig.redirectUri}&response_type=id_token&scope=openid&state=seizeyourday&nonce=${Math.random().toString(36).substr(2)}&prompt=login`
-    console.log(authUrl)
+    const authUrl = `https://auth.misakey.com/_/oauth2/auth?client_id=${authConfig.clientId}&redirect_uri=${authConfig.redirectUri}&response_type=id_token&scope=openid&state=${Math.random().toString(36).substr(2)}&nonce=${Math.random().toString(36).substr(2)}&prompt=login`
     const authWindow = openCenteredWindow(authUrl, 'authwindow', 800, 600)
 
-    // redirect to auth flow
-    // window.location = '/callback#accessToken';
-    // Set a loader in connect button ?
     setIsConnecting(true);
     const checkInterval = setInterval(
       () => {
@@ -86,7 +83,7 @@ export default ({ authConfig }) => {
   if (isConnecting) {
     return (
       <a style={buttonDisabledStyle}>
-        Connexion...
+        Signin-in...
       </a>
     )
   }
@@ -106,16 +103,16 @@ export default ({ authConfig }) => {
           <Paper style={popoverStyle}>
             <Avatar displayName={userProfile.name} />
             <Typography variant="h4">
-              {userProfile.name.substr(0, 5)}
+              {userProfile.name}
             </Typography>
             <Typography color="textSecondary">
-              {userProfile.name.substr(0, 10)}
+              {userProfile.email}
             </Typography>
             <hr width="100%" />
-            <button onClick={onLogout} style={logoutButton}>Deconnexion</button>
+            <button onClick={onLogout} style={logoutButton}>Logout</button>
             <hr width="100%" />
-            <Link href="#" color="textSecondary">Règles de confidentialité</Link>
-            <Link href="#" color="textSecondary">Conditions d'utilisation</Link>
+            <Link href="https://about.misakey.com/#/legals/privacy-policy/" color="textSecondary">Privacy Policy</Link>
+            <Link href="https://about.misakey.com/#/legals/tos/" color="textSecondary">Terms Of Services</Link>
           </Paper>
         </Popover>
       </>
@@ -124,7 +121,7 @@ export default ({ authConfig }) => {
 
   return (
     <a style={buttonStyle} onClick={onConnect}>
-      Connexion
+      Signin
     </a>
   )
 }

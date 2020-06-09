@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ConnectButton from './ConnectButton';
 
-import { manageAuthCallback } from './helpers';
+import { manageAuthCallback, extractNameFromEmail, setLocalStorageItem } from './helpers';
 
 const connectbuttonId = 'msk-auth-button';
 
@@ -15,15 +15,12 @@ const createConnectButton = (authConfig) => {
   ReactDOM.render(<ConnectButton authConfig={authConfig} />, document.getElementById('msk-auth-button'));
 }
 
-// Explore to add some external components (material, @mk/ui)
-
 export const useMisakeyAuth = (authConfig) => {
   const [userProfile, setUserProfile] = useState(localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null);
 
   const connectButtonDomNode = document.getElementById(connectbuttonId);
 
   if (connectButtonDomNode === null) {
-    console.log("init button connect")
     createConnectButton(authConfig);
   }
 
@@ -38,10 +35,12 @@ export const useMisakeyAuth = (authConfig) => {
   );
 
   if (isAuthCallback) {
-    console.log('coucou')
     manageAuthCallback()
       .then((idToken) => {
-        localStorage.setItem('userProfile', JSON.stringify({ name: idToken.sub }));
+        localStorage.setItem('userProfile', JSON.stringify({
+          email: idToken.email,
+          name: extractNameFromEmail(idToken.email),
+        }));
         window.close();
       })
       .catch(console.error)
