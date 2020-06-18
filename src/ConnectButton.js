@@ -83,7 +83,7 @@ export default ({ authConfig }) => {
   if (isConnecting) {
     return (
       <a style={buttonDisabledStyle}>
-        Signin-in...
+        Signing in...
       </a>
     )
   }
@@ -109,10 +109,10 @@ export default ({ authConfig }) => {
               {userProfile.email}
             </Typography>
             <hr width="100%" />
-            <button onClick={onLogout} style={logoutButton}>Logout</button>
+            <button onClick={onLogout} style={logoutButton}>Sign out</button>
             <hr width="100%" />
             <Link href="https://about.misakey.com/#/legals/privacy-policy/" color="textSecondary">Privacy Policy</Link>
-            <Link href="https://about.misakey.com/#/legals/tos/" color="textSecondary">Terms Of Services</Link>
+            <Link href="https://about.misakey.com/#/legals/tos/" color="textSecondary">Terms Of Service</Link>
           </Paper>
         </Popover>
       </>
@@ -121,7 +121,7 @@ export default ({ authConfig }) => {
 
   return (
     <a style={buttonStyle} onClick={onConnect}>
-      Signin
+      Sign in
     </a>
   )
 }

@@ -1,5 +1,8 @@
 # @misakey/sdk
 
+Misakey is the user account solution for people and applications who
+value privacy and simplicity. And it’s open source.
+
 Misakey SDK for integrating easy user authentication in your JS application
 
 <p align="center">
@@ -74,7 +77,7 @@ We appreciate feedback and contribution to this repo! Before you get started, pl
 
 ## Support + Feedback
 
-For support or to provide feedback, please [raise an issue on our issue tracker](https://github.com/misakey/sso-js-sdk/issues).
+For support or to provide feedback, please [raise an issue on our issue tracker](https://gitlab.com/misakey/sso/js-sdk/issues).
 
 
 ## What is Misakey?
@@ -82,8 +85,12 @@ For support or to provide feedback, please [raise an issue on our issue tracker]
 Misakey helps you to easily integrate robust user managment into your app.
 
 
-[Why Misakey?](https://misakey.com/why)
+[Why Misakey?](https://misakey.com/)
 
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more info.
+
+## Source management disclaimer
+
+Misakey uses GitLab for the development of its free softwares. Our Github repositories are only mirrors. If you want to work with us, fork us on gitlab.com (no registration needed, you can sign in with your Github account)
