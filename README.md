@@ -31,7 +31,7 @@ npm install @misakey/sdk
 Using [yarn](https://yarnpkg.com):
 
 ```sh
-yarn add @auth0/sdk
+yarn add @misakey/sdk
 ```
 
 ## Getting started
